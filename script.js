@@ -3,17 +3,25 @@ const apikey = "3265874a2c77ae4a04bb96236a642d2f";
 const main = document.getElementById("main");
 const form = document.getElementById("form");
 const search = document.getElementById("search");
+const searchBtn = document.getElementById("search-btn");
 
 const url = (city) =>
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}`;
 
 async function getWeatherByLocation(city) {
-    const resp = await fetch(url(city), { origin: "cors" });
-    const respData = await resp.json();
+    try {
+        const resp = await fetch(url(city), { origin: "cors" });
+        if (resp.status === 404) {
+            alert("Please enter a valid City name");
+            return;
+        }
 
-    console.log(respData);
-
-    addWeatherToPage(respData);
+        const respData = await resp.json();
+        console.log(respData);
+        addWeatherToPage(respData);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function addWeatherToPage(data) {
@@ -46,3 +54,14 @@ form.addEventListener("submit", (e) => {
         getWeatherByLocation(city);
     }
 });
+
+searchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const city = search.value;
+  
+    if (city) {
+      getWeatherByLocation(city);
+    } else {
+        alert("Enter a city to search");
+    }
+  });

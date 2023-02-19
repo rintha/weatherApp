@@ -26,6 +26,25 @@ input {
   min-width: 300px;
 }
 
+button{
+  background-color: #000000;
+  border: none;
+  border-radius: 25px;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 1rem;
+  min-width: 5px;
+  margin-left: 5px;
+  color:white
+
+}
+
+button:hover {
+  background-color: #585757;
+  cursor: pointer;
+}
+
+
 input:focus {
   outline: none;
 }
